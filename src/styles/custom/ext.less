@@ -1,0 +1,183 @@
+/*tabbable */
+.tabbable {
+  .nav-tabs {
+    a {
+      cursor: pointer;
+    }
+  }
+}
+
+/*!tabbable */
+
+/*dropdown-menu*/
+.dropdown-menu {
+  @dropdown-menu-color: lighten(@grayLight,10%);
+  border-color: @dropdown-menu-color;
+  padding: 3px 0;
+
+  .dropdown-menu {
+    &:before,&:after {
+      display: none;
+    }
+  }
+  /*!arrow*/
+
+  li {
+    a {
+      .transition(all 0.3s ease);
+      .border-radius(3px);
+      margin: 0 3px;
+      cursor: pointer;
+      &:hover, &:active, &:focus {
+        .reset-filter();
+        color: #fff;
+        background-image: none;
+        background-color: @accentColor;
+      }
+    }
+
+    &.dropdown-submenu {
+      .transition(all 0.3s ease);
+      &:hover, &:active, &:focus {
+        > a {
+          .reset-filter();
+          background-image: none;
+          background-color: @accentColor;
+        }
+      }
+    }
+
+    &.active {
+      a,
+      a:hover {
+        background-image: none;
+        background-color: @accentColor;
+      }
+    }
+  }
+}
+/*dropdown-menu*/
+
+/*table */
+table {
+  tbody {
+    [class^='icon-'],[class*=' icon-'] {
+      opacity: 0.2;
+    }
+    tr {
+      &:hover {
+        [class^='icon-'],[class*=' icon-'] {
+          opacity: 0.5;
+        }
+      }
+      .edit {
+        opacity: 0.5;
+        &:hover {
+          text-decoration: none;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  thead {
+    [class^='icon-'],[class*=' icon-'] {
+      color: @white;
+    }
+    a[class^='icon-'],a[class*=' icon-'] {
+      opacity: 0.8;
+      &:hover {
+        text-decoration: none;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/*rewrites */
+
+/*table-striped */
+.table-striped {
+  tbody {
+    > tr:nth-child(odd) > td,
+    > tr:nth-child(odd) > th {
+      background-color: transparent;
+    }
+    > tr:nth-last-child(odd) > td,
+    > tr:nth-last-child(odd) > th {
+      background-color: @tableBackgroundAccent;
+    }
+  }
+}
+
+/*!table-striped */
+
+/*!rewrites */
+
+/*variations */
+
+/*table-vertical-border */
+.table-vertical-border {
+  th,td {
+    border-left: 1px solid @tableBorder;
+    &:first-child {
+      border-left: none;
+    }
+  }
+}
+
+/*!table-vertical-border */
+
+/*table-highlighted-head */
+.table-highlighted-head {
+  thead,tfoot {
+    th,td {
+      color: @white;
+      border: none;
+      background: lighten(@gray, 25%);
+    }
+  }
+}
+
+/*!table-highlighted-head */
+
+/*table-border-radius */
+.table-border-radius {
+  thead {
+    th {
+      &:first-child {
+        .border-top-left-radius(10px);
+      }
+      &:last-child {
+        .border-top-right-radius(10px);
+      }
+    }
+  }
+  tbody:last-child {
+    tr:last-child {
+      td {
+        &:first-child {
+          .border-bottom-left-radius(10px);
+        }
+        &:last-child {
+          .border-bottom-right-radius(10px);
+        }
+      }
+    }
+  }
+  tfoot {
+    td {
+      &:first-child {
+        .border-bottom-left-radius(10px);
+      }
+      &:last-child {
+        .border-bottom-right-radius(10px);
+      }
+    }
+  }
+}
+
+/*!table-border-radius */
+
+/*variations */
+
+/*!table */

@@ -1,0 +1,8 @@
+{
+  "name": "Activemq Logging",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular-route": "1.2.16",
+    "bootstrap": "3.0.0"
+  }
+}

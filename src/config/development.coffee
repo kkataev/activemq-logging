@@ -1,0 +1,5 @@
+env = angular.module('envConfig', [])
+env.constant('env', 'dev')
+env.constant('notificationsList', [])
+env.constant('notificationAdapter', 'nodeJsService')
+env.constant('permissionsList', [])
