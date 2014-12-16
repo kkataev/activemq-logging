@@ -50,34 +50,15 @@ module.exports = (app, options) ->
 		query = query + ') as c'
 
 		if req.query.offset
-			start = parseInt(req.query.offset)
+			start = parseInt(req.query.offset) + 1
 			count = parseInt(req.query.count)
 			finish = start + count
 			query = query + ' WHERE RowNum >= ' + start + ' AND RowNum < ' + finish + ' ORDER BY RowNum'
-
+		
 		console.log query
 
 		sql.query connectionString, query, (err, result) ->
 			if err
-				res.json {response: "Query Failed \n" + err}
+				res.json "Query Failed \n" + err
 			else
-				res.json {response: result}
-
-
-	###
-	app.get '/api/destinations', (req, res) ->
-		client.query "select destination, sum(CASE WHEN status = 1 THEN 1 ELSE 0 END) as send, sum(CASE WHEN status = 2 THEN 1 ELSE 0 END) as get from messages group by destination", (err, result) ->
-			if err
-				res.json err
-			else if result and result.rows
-				res.json result.rows
-
-	app.get '/api/messages', (req, res) ->
-		dest = req.query.destination
-		console.log dest
-		client.query "select text, sum(CASE WHEN status = 1 THEN 1 ELSE 0 END) as send, sum(CASE WHEN status = 2 THEN 1 ELSE 0 END) as get from messages where destination = $1 group by text", [dest], (err, result) ->
-			if err
-				res.json err
-			else if result and result.rows
-				res.json result.rows
-	###
+				res.json result

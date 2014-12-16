@@ -128,7 +128,7 @@ gulp.task 'copy:vendors_views', ->
 		.pipe(gulp.dest('public/vendors'))
 
 gulp.task 'copy:src_views', ->
-	gulp.src('./src/**/*.html')
+	gulp.src('./src/views/*.html')
 		.pipe(gulp.dest('public/views'))
 
 gulp.task 'images:dev', ->
@@ -254,6 +254,7 @@ gulp.task 'build:dev', [
 	'coffee:scripts' 
 	'coffee:vendors' 
 	'copy:vendors_views' 
+	'copy:src_views'
 	'less:dev'
 	'copy:fonts'
 	'images:dev'
@@ -264,6 +265,7 @@ gulp.task 'build:prod', [
 	'concat:vendors'
 	'concat:scripts'
 	'copy:vendors_views' 
+	'copy:src_views'
 	'less:prod'
 	'copy:fonts'
 	'images:prod'

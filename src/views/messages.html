@@ -1,0 +1,772 @@
+<!--activityRecordsController-->
+<div ng-controller='mainController'>
+
+    <!--main-container-->
+    <div class="main-container main-container-activity" ng-enter="false">
+
+        <!--row-->
+        <div class="row">
+
+            <!--col-left-->
+            <div class="col-xs-3">
+
+                <!--aside-->
+                <div class="aside">
+
+                    <!--filter-->
+                    <div class="filters">
+
+                        <!--form-->
+                        <form>
+
+                            <!--fieldset-->
+                            <fieldset>
+
+                                <!--filters-scroll-->
+                                <div class="filters-scroll">
+
+                                    <!--locations-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-map-marker"></span> Locations:
+                                            <span ns-model="filters.collapsed[0]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[0] }" ng-click="collapseFilterBlock(0); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group" ng-hide="filters.collapsed[0]">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11" stop-propagation>
+
+                                                    <select
+                                                            class="input-block-level"
+                                                            select-box
+                                                            size="4"
+                                                            tabindex="2"
+                                                            multiple
+                                                            ng-model="branch"
+                                                            ng-options="branch.name for branch in branches"
+                                                            ng-change="setBranchDebounced()">
+                                                    </select>
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+                                                        ng-click="clearBranch()"
+                                                        class="control-remove"
+                                                        tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/locations-->
+
+                                    <!--teams-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-users-2"></span> Teams:
+                                            <span ns-model="filters.collapsed[1]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[1] }" ng-click="collapseFilterBlock(1); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group" ng-hide="filters.collapsed[1]" ng-class="{'form-group-disable': !teams}">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11" stop-propagation>
+
+                                                    <select
+                                                            class="input-block-level"
+                                                            select-box
+                                                            size="4"
+                                                            tabindex="3"
+                                                            multiple
+                                                            ng-model="team"
+                                                            ng-options="team.displayString for team in teams"
+                                                            ng-change="setTeamDebounced()"
+                                                            view-value-name="displayString">
+                                                    </select>
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+                                                            ng-click="clearTeam()"
+                                                            class="control-remove"
+                                                            tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/teams-->
+
+                                    <!--employee-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-search"></span> Employee:
+                                            <span ns-model="filters.collapsed[2]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[2] }" ng-click="collapseFilterBlock(2); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group" ng-hide="filters.collapsed[2]">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11">
+
+                                                    <input
+                                                        ng-disabled="$root.isFilterLoading"
+                                                        class="form-control input-sm"
+                                                        type="text"
+                                                        ng-model="filters.employeeNameFilter"
+                                                        ng-change="setEmployeeDebounced()"
+                                                        tabindex="4">
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+
+                                                        ng-click="clearEmployee()"
+                                                        class="control-remove"
+                                                        tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/employee-->
+
+                                    <!--client-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-search"></span> Client:
+                                            <span ns-model="filters.collapsed[3]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[3] }" ng-click="collapseFilterBlock(3); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group" ng-hide="filters.collapsed[3]">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11">
+
+                                                    <input
+                                                        ng-disabled="$root.isFilterLoading"
+                                                        class="form-control input-sm"
+                                                        type="text"
+                                                        ng-model="filters.clientNameFilter"
+                                                        ng-change="setClientDebounced()"
+                                                        tabindex="5">
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+                                                        ng-click="clearClient()"
+                                                        class="control-remove"
+                                                        tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/client-->
+
+                                    <!--activity date-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-calendar"></span> Activity Date:
+                                            <span ns-model="filters.collapsed[4]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[4] }" ng-click="collapseFilterBlock(4); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <div class="form-group-wrap" ng-hide="filters.collapsed[4]">
+
+                                            <!--form-group_DateFrom-->
+                                            <div class="form-group">
+
+                                                <!--row-->
+                                                <div class="row">
+
+                                                    <!--col-->
+                                                    <div class="col-xs-11">
+
+                                                        <!--form-horizontal-->
+                                                        <div class="form-horizontal">
+
+                                                            <!--form-group-->
+                                                            <div class="form-group">
+
+                                                                <!--control-label-->
+                                                                <label class="control-label col-xs-3">From:</label>
+                                                                <!--/control-label-->
+
+                                                                <!--col-->
+                                                                <div class="col-xs-9">
+
+                                                                    <!--input-group-->
+                                                                    <div class="input-group input-group-sm">
+                                                                        <!--input-->
+
+                                                                        <input-date
+                                                                                value="dateFrom"
+                                                                                tabindex="6"
+                                                                                autocommit="debouncedInput(350), lostFocus"
+                                                                                update-from-ctrl="dateFromUpdateFire">
+                                                                        </input-date>
+
+                                                                    </div>
+                                                                    <!--/input-group-->
+
+                                                                </div>
+                                                                <!--/col-->
+
+                                                            </div>
+                                                            <!--/form-group-->
+
+                                                        </div>
+                                                        <!--/form-horizontal-->
+
+                                                    </div>
+                                                    <!--/col-->
+
+                                                    <!--col-->
+                                                    <div class="col-xs-1 text-center">
+
+                                                        <a
+                                                            ng-click="clearDate('dateFrom')"
+                                                            class="control-remove"
+                                                            tabindex="-1">
+                                                            <span class="glyphicon glyphicon-remove-2"></span>
+                                                        </a>
+
+                                                    </div>
+                                                    <!--/col-->
+
+                                                </div>
+                                                <!--/row-->
+
+                                            </div>
+                                            <!--/form-group_DateFrom-->
+
+                                            <!--form-group_DateTo-->
+                                            <div class="form-group">
+
+                                                <!--row-->
+                                                <div class="row">
+
+                                                    <!--col-->
+                                                    <div class="col-xs-11">
+
+                                                        <!--form-horizontal-->
+                                                        <div class="form-horizontal">
+
+                                                            <!--form-group-->
+                                                            <div class="form-group">
+
+                                                                <!--control-label-->
+                                                                <label class="control-label col-xs-3">To:</label>
+                                                                <!--/control-label-->
+
+                                                                <!--col-->
+                                                                <div class="col-xs-9">
+
+                                                                    <!--input-group-->
+                                                                    <div class="input-group input-group-sm">
+
+                                                                        <input-date
+                                                                                value="dateTo"
+                                                                                tabindex="7"
+                                                                                autocommit="debouncedInput(350), lostFocus"
+                                                                                update-from-ctrl="dateToUpdateFire">
+                                                                        </input-date>
+
+                                                                    </div>
+                                                                    <!--/input-group-->
+
+                                                                </div>
+                                                                <!--/col-->
+
+                                                            </div>
+                                                            <!--/form-group-->
+
+                                                        </div>
+                                                        <!--/form-horizontal-->
+
+                                                    </div>
+                                                    <!--/col-->
+
+                                                    <!--col-->
+                                                    <div class="col-xs-1 text-center">
+
+                                                        <a
+                                                            ng-click="clearDate('dateTo')"
+                                                            class="control-remove"
+                                                            tabindex="-1">
+                                                            <span class="glyphicon glyphicon-remove-2"></span>
+                                                        </a>
+
+                                                    </div>
+                                                    <!--/col-->
+
+                                                </div>
+                                                <!--/row-->
+
+                                            </div>
+                                            <!--/form-group_DateTo-->
+
+                                        </div>
+
+                                    </div>
+                                    <!--/activity date-->
+
+                                    <!--status-->
+                                    <div class="form-group form-group-section form-group-status">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-exportfile"></span> Status:
+                                            <span ns-model="filters.collapsed[5]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[5] }" ng-click="collapseFilterBlock(5); "></span>
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group" ng-hide="filters.collapsed[5]">
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        ng-change="setFilter('status', '')"
+                                                        type="radio"
+                                                        name="status-select"
+                                                        ng-checked="true"
+                                                        value="active"
+                                                        tabindex="8">
+                                                    <span tooltip="Records which have alerts and need attention">
+                                                        <span class="glyphicon glyphicon-user"></span>
+                                                        Active
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        type="radio"
+                                                        ng-change="setFilter('status', 'pending')"
+                                                        name="status-select"
+                                                        value="pending"
+                                                        tabindex="9">
+                                                    <span tooltip="Records which are waiting to export">
+                                                        <span class="glyphicon glyphicon-busy"></span>
+                                                        Pending
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        type="radio"
+                                                        ng-change="setFilter('status', 'exported')"
+                                                        name="status-select"
+                                                        value="exported"
+                                                        tabindex="10">
+                                                    <span tooltip="Records which have been exported">
+                                                        <span class="glyphicon glyphicon-exportfile"></span>
+                                                        Completed
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        type="radio"
+                                                        ng-change="setFilter('status', 'underway')"
+                                                        name="status-select"
+                                                        value="underway"
+                                                        tabindex="11">
+                                                    <span tooltip="Visits which are in progress">
+                                                        <span class="glyphicon glyphicon-clock"></span>
+                                                        Underway
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        type="radio"
+                                                        ng-change="setFilter('status', 'inReview')"
+                                                        name="status-select"
+                                                        value="inReview"
+                                                        tabindex="11">
+                                                    <span tooltip="Visits which are in AMP user review">
+                                                        <span class="glyphicon glyphicon-phone"></span>
+                                                        User review
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                            <!--radio-->
+                                            <div class="radio">
+                                                <label>
+                                                    <input
+                                                        ng-model="status"
+                                                        type="radio"
+                                                        ng-change="setFilter('status', 'all')"
+                                                        value="all"
+                                                        name="status-select"
+                                                        tabindex="12">
+                                                    All
+                                                </label>
+                                            </div>
+                                            <!--/radio-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/status-->
+
+                                </div>
+                                <!--/filters-scroll-->
+
+                            </fieldset>
+                            <!--fieldset-->
+
+                        </form>
+                        <!--/form-->
+
+                    </div>
+                    <!--/filter-->
+
+                </div>
+                <!--/aside-->
+
+            </div>
+            <!--/col-left-->
+
+            <!--col-right-->
+            <div class="col-xs-9">
+
+                <!--grid-->
+                <div class="grid grid-activityRecord">
+
+                    <!--grid-heading-->
+                    <div class="grid-heading">
+
+                        <div class="grid-cols-row">
+
+                            <!--employee-->
+                            <div class="grid-col-employee"
+                                 ng-click="changeDirectionFor('employee')"
+                                 ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'employee'), 'sort-up': sortPredicate('desc', 'employee') }">
+                                ActiveMQ ID
+                            </div>
+                            <!--/employee-->
+
+                            <!--client-->
+                            <div class="grid-col-client"
+                                 ng-click="changeDirectionFor('client')"
+                                 ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'client'), 'sort-up': sortPredicate('desc', 'client') }">
+                                ServiceTracker ID
+                            </div>
+                            <!--/client-->
+
+                            <!--date-->
+                            <div class="grid-col-visitStart"
+                                 ng-click="changeDirectionFor('visitDate')"
+                                 ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'visitDate'), 'sort-up': sortPredicate('desc', 'visitDate') }">
+                                Status
+                            </div>
+                            <!--/date-->
+
+                            <!--visitEnd-->
+                            <div class="grid-col-visitEnd">
+                                Date
+                            </div>
+                            <!--/visitEnd-->
+
+                            <!--duration-->
+                            <div class="grid-col-duration"
+                                ng-click="changeDirectionFor('duration')"
+                                ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'duration'), 'sort-up': sortPredicate('desc', 'duration') }">
+                                Destination
+                            </div>
+                            <!--/duration-->
+
+                            <!--scheduledDuration-->
+                            <div class="grid-col-shDuration text-center">
+                                Text
+                            </div>
+                            <!--/scheduledDuration-->
+
+                            <!--status>
+                            <div class="grid-col-alerts">
+                                Origin
+                            </div>
+                            <!--/status>
+
+                            <!--status>
+                            <div class="grid-col-alerts">
+                                Sender ID
+                            </div>
+                            <!--/status-->
+                        </div>
+                        <!--/client name-->
+
+                    </div>
+                    <!--grid-heading-->
+
+                    <!--grid-body-->
+                    <div class="grid-body">
+
+                        <!--grid-body-scroll-->
+                        <div class="grid-body-scroll" ui-scroll-viewport>
+
+                            <!--grid-cols-row-->
+                            <a
+                                class="grid-cols-row"
+                                ui-scroll="msg in messages"
+                                buffer-size="50"
+                                >
+                                <!--status-->
+                                <span class="grid-col-status text-center">
+
+                                    <span
+                                        ng-show=" msg.status == '1'"
+										tooltip="Sent"
+                                        class="glyphicon glyphicon-phone">
+                                    </span>
+
+                                    <span
+                                        ng-show=" msg.status == '2'"
+                                        class="glyphicon glyphicon-phone"
+										tooltip-html-unsafe="User review: Visits which are in AMP user review <div ng-show='isLocked(ar)'><hr><div class='tooltop-locked-by'><span class='glyphicon glyphicon-locked'></span>Locked by {{ar.lockedByUserName}}</div></div>">
+                                    </span>
+
+                                    <span
+                                        ng-show=" msg.status == '3' "
+										tooltip="Underway: Visits which are in progress"
+                                        class="glyphicon glyphicon-clock">
+                                    </span>
+
+                                    <span
+                                        ng-show=" msg.status == '' "
+                                        tooltip="Underway: Visits which are in progress"
+                                        class="glyphicon glyphicon-clock">
+                                    </span>
+                                                                        
+                                </span>
+                                <!--/status-->
+
+                                <!--employee-->
+                                <span class="grid-col-employee">
+                                    <span
+                                        class="nowrap"
+                                        tooltip="{{msg.activemq_id}}"
+                                        ng-show="msg.activemq_id">
+                                        {{msg.activemq_id}}
+                                    </span>
+                                </span>
+                                <!--/employee-->
+
+                                <!--servicetracker_id-->
+                                <span class="grid-col-employee">
+                                    <span
+                                        class="nowrap"
+                                        ng-show="msg.servicetracker_id">
+                                        {{msg.servicetracker_id}}
+                                    </span>
+                                </span>
+                                <!--/servicetracker_id-->
+
+                                <!--status-->
+                                <span class="grid-col-employee">
+                                    <span
+                                        class="nowrap"
+                                        ng-show="msg.status">
+                                        {{msg.status}}
+                                    </span>
+                                </span>
+                                <!--/status-->
+
+                                <!--date_time-->
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         ng-show="msg.date_time">
+                                         {{msg.date_time }}
+                                     </span>
+                                </span>
+                                <!--/date_time-->
+
+
+                                <!--destination-->
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         ng-show="msg.destination">
+                                         {{msg.destination }}
+                                     </span>
+                                </span>
+                                <!--/destination-->
+            
+                                <!--message_text-->
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         tooltip="{{msg.message_text}}"
+                                         ng-show="msg.message_text">
+                                         {{msg.message_text }}
+                                     </span>
+                                </span>
+                                <!--/message_text-->             
+
+                                <!--message_text>
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         ng-show="msg.origin">
+                                         {{msg.origin }}
+                                     </span>
+                                </span>
+                                <!--/message_text>        
+
+                                <!--message_text>
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         ng-show="msg.sender_id">
+                                         {{msg.sender_id }}
+                                     </span>
+                                </span>
+                                <!--/message_text-->        
+
+
+
+                            </a>
+                            <!--/grid-cols-row-->
+
+                        </div>
+                        <!--/grid-body-scroll-->
+
+                    </div>
+                    <!--/grid-body-->
+
+                </div>
+                <!--/grid-->
+
+            </div>
+            <!--/col-right-->
+
+        </div>
+        <!--/row-->
+
+    </div>
+    <!--main-container-->
+
+    <!--loader-->
+    <div class="loader-overlay" ng-show="$root.isFilterLoading || isGridLoading">
+        <div class="loader"></div>
+    </div>
+    <!-- {{ $root.isFilterLoading }} -->
+    <!--/loader-->
+
+</div>
+<!--/activityRecordsController-->
+
+
+
+
+
+
+

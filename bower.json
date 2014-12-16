@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "angular-route": "1.2.16",
-    "bootstrap": "3.0.0"
+    "bootstrap": "3.0.0",
+    "angular-bootstrap": "",
+    "Hill30": "git://github.com/Hill30/WebApiComponents.git#1.0.0"
   }
 }
