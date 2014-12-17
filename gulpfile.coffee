@@ -198,8 +198,8 @@ gulp.task 'index:dev', ->
 		'scripts/filters/**/*.js'
 		'scripts/resources/**/*.js'
 	],
-	read: false
-	cwd: "" + __dirname + "/public/"
+		read: false
+		cwd: "" + __dirname + "/public/"
 	)
 	target.pipe(inject(sources),{ignorePath: 'public'})
 		.pipe gulp.dest('public')
@@ -210,8 +210,8 @@ gulp.task 'index:prod', ->
 		'scripts/vendors.js'
 		'scripts/scripts.js'
 	],
-	read: false
-	cwd: "" + __dirname + "/public/"
+		read: false
+		cwd: "" + __dirname + "/public/"
 	)
 	target.pipe(inject(sources),{ignorePath: 'public'})
 		.pipe gulp.dest('public')

@@ -3,18 +3,14 @@ angular.module('app')
 		'$scope', '$log', '$location', '$rootScope', 'messagesResource', 'debounce', '$routeParams'
 		($scope, console, $location, $rootScope, messagesResource, debounce, $routeParams) ->
 
-
 			revisionToRequestData = 0
 			defaultDebounceTime = 350
-			$scope.shared = {}
-
-			# work with route params
 
 			refreshRouteParams = () ->
-				$location.search if $scope.nameFilter then { nameFilter: $scope.nameFilter } else {}
+				$location.search if $scope.filters then $scope.filters else {}
 
 			setFilterFromRouteParams = () ->
-				$scope.nameFilter = $routeParams.nameFilter if $routeParams.nameFilter
+				$scope.filters = $routeParams if $routeParams
 
 			$scope.setFilterDebounced = debounce(() ->
 				refreshRouteParams()
@@ -24,9 +20,9 @@ angular.module('app')
 			$scope.messages =
 					get: (index, count, success)->
 						options = {}
+						options = $scope.filters if $scope.filters
 						options.offset = index - 1
 						options.count = count
-						options.nameFilter = $scope.nameFilter if $scope.nameFilter
 
 						successProccessed = (result) ->
 							success(result)
@@ -39,6 +35,10 @@ angular.module('app')
 				forceDataAsyncLoad = () ->
 					revisionToRequestData++
 
+			$scope.clear = (_filter) -> 
+				delete $scope.filters[_filter]
+				$scope.setFilterDebounced()
+				
 			setFilterFromRouteParams()
 
 	])

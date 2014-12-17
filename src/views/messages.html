@@ -25,129 +25,17 @@
                                 <!--filters-scroll-->
                                 <div class="filters-scroll">
 
-                                    <!--locations-->
+                                    <!--ServiceTracker ID-->
                                     <div class="form-group form-group-section">
 
                                         <!--control-label-->
                                         <label class="control-label">
-                                            <span class="glyphicon glyphicon-map-marker"></span> Locations:
-                                            <span ns-model="filters.collapsed[0]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[0] }" ng-click="collapseFilterBlock(0); "></span>
+                                            <span class="glyphicon glyphicon-search"></span> ServiceTracker ID (search all messages joined by ActiveMQ ID):
                                         </label>
                                         <!--/control-label-->
 
                                         <!--form-group-->
-                                        <div class="form-group" ng-hide="filters.collapsed[0]">
-
-                                            <!--row-->
-                                            <div class="row">
-
-                                                <!--col-->
-                                                <div class="col-xs-11" stop-propagation>
-
-                                                    <select
-                                                            class="input-block-level"
-                                                            select-box
-                                                            size="4"
-                                                            tabindex="2"
-                                                            multiple
-                                                            ng-model="branch"
-                                                            ng-options="branch.name for branch in branches"
-                                                            ng-change="setBranchDebounced()">
-                                                    </select>
-
-                                                </div>
-                                                <!--/col-->
-
-                                                <!--col-->
-                                                <div class="col-xs-1 text-center">
-
-                                                    <a
-                                                        ng-click="clearBranch()"
-                                                        class="control-remove"
-                                                        tabindex="-1">
-                                                        <span class="glyphicon glyphicon-remove-2"></span>
-                                                    </a>
-
-                                                </div>
-                                                <!--/col-->
-
-                                            </div>
-                                            <!--/row-->
-
-                                        </div>
-                                        <!--/form-group-->
-
-                                    </div>
-                                    <!--/locations-->
-
-                                    <!--teams-->
-                                    <div class="form-group form-group-section">
-
-                                        <!--control-label-->
-                                        <label class="control-label">
-                                            <span class="glyphicon glyphicon-users-2"></span> Teams:
-                                            <span ns-model="filters.collapsed[1]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[1] }" ng-click="collapseFilterBlock(1); "></span>
-                                        </label>
-                                        <!--/control-label-->
-
-                                        <!--form-group-->
-                                        <div class="form-group" ng-hide="filters.collapsed[1]" ng-class="{'form-group-disable': !teams}">
-
-                                            <!--row-->
-                                            <div class="row">
-
-                                                <!--col-->
-                                                <div class="col-xs-11" stop-propagation>
-
-                                                    <select
-                                                            class="input-block-level"
-                                                            select-box
-                                                            size="4"
-                                                            tabindex="3"
-                                                            multiple
-                                                            ng-model="team"
-                                                            ng-options="team.displayString for team in teams"
-                                                            ng-change="setTeamDebounced()"
-                                                            view-value-name="displayString">
-                                                    </select>
-
-                                                </div>
-                                                <!--/col-->
-
-                                                <!--col-->
-                                                <div class="col-xs-1 text-center">
-
-                                                    <a
-                                                            ng-click="clearTeam()"
-                                                            class="control-remove"
-                                                            tabindex="-1">
-                                                        <span class="glyphicon glyphicon-remove-2"></span>
-                                                    </a>
-
-                                                </div>
-                                                <!--/col-->
-
-                                            </div>
-                                            <!--/row-->
-
-                                        </div>
-                                        <!--/form-group-->
-
-                                    </div>
-                                    <!--/teams-->
-
-                                    <!--employee-->
-                                    <div class="form-group form-group-section">
-
-                                        <!--control-label-->
-                                        <label class="control-label">
-                                            <span class="glyphicon glyphicon-search"></span> Employee:
-                                            <span ns-model="filters.collapsed[2]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[2] }" ng-click="collapseFilterBlock(2); "></span>
-                                        </label>
-                                        <!--/control-label-->
-
-                                        <!--form-group-->
-                                        <div class="form-group" ng-hide="filters.collapsed[2]">
+                                        <div class="form-group">
 
                                             <!--row-->
                                             <div class="row">
@@ -159,8 +47,8 @@
                                                         ng-disabled="$root.isFilterLoading"
                                                         class="form-control input-sm"
                                                         type="text"
-                                                        ng-model="filters.employeeNameFilter"
-                                                        ng-change="setEmployeeDebounced()"
+                                                        ng-model="filters.servicetracker_id"
+                                                        ng-change="setFilterDebounced()"
                                                         tabindex="4">
 
                                                 </div>
@@ -171,7 +59,7 @@
 
                                                     <a
 
-                                                        ng-click="clearEmployee()"
+                                                        ng-click="clear('servicetracker_id')"
                                                         class="control-remove"
                                                         tabindex="-1">
                                                         <span class="glyphicon glyphicon-remove-2"></span>
@@ -187,20 +75,19 @@
                                         <!--/form-group-->
 
                                     </div>
-                                    <!--/employee-->
+                                    <!--/ServiceTracker ID-->
 
-                                    <!--client-->
+                                    <!--activemq_id -->
                                     <div class="form-group form-group-section">
 
                                         <!--control-label-->
                                         <label class="control-label">
-                                            <span class="glyphicon glyphicon-search"></span> Client:
-                                            <span ns-model="filters.collapsed[3]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[3] }" ng-click="collapseFilterBlock(3); "></span>
+                                            <span class="glyphicon glyphicon-search"></span> ActiveMQ ID:
                                         </label>
                                         <!--/control-label-->
 
                                         <!--form-group-->
-                                        <div class="form-group" ng-hide="filters.collapsed[3]">
+                                        <div class="form-group">
 
                                             <!--row-->
                                             <div class="row">
@@ -212,9 +99,9 @@
                                                         ng-disabled="$root.isFilterLoading"
                                                         class="form-control input-sm"
                                                         type="text"
-                                                        ng-model="filters.clientNameFilter"
-                                                        ng-change="setClientDebounced()"
-                                                        tabindex="5">
+                                                        ng-model="filters.activemq_id"
+                                                        ng-change="setFilterDebounced()"
+                                                        tabindex="4">
 
                                                 </div>
                                                 <!--/col-->
@@ -223,7 +110,8 @@
                                                 <div class="col-xs-1 text-center">
 
                                                     <a
-                                                        ng-click="clearClient()"
+
+                                                        ng-click="clear('activemq_id')"
                                                         class="control-remove"
                                                         tabindex="-1">
                                                         <span class="glyphicon glyphicon-remove-2"></span>
@@ -239,19 +127,123 @@
                                         <!--/form-group-->
 
                                     </div>
-                                    <!--/client-->
+                                    <!--/activemq_id-->
 
-                                    <!--activity date-->
+
+                                    <!--message_text -->
                                     <div class="form-group form-group-section">
 
                                         <!--control-label-->
                                         <label class="control-label">
-                                            <span class="glyphicon glyphicon-calendar"></span> Activity Date:
-                                            <span ns-model="filters.collapsed[4]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[4] }" ng-click="collapseFilterBlock(4); "></span>
+                                            <span class="glyphicon glyphicon-search"></span> Message Text:
                                         </label>
                                         <!--/control-label-->
 
-                                        <div class="form-group-wrap" ng-hide="filters.collapsed[4]">
+                                        <!--form-group-->
+                                        <div class="form-group">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11">
+
+                                                    <input
+                                                        ng-disabled="$root.isFilterLoading"
+                                                        class="form-control input-sm"
+                                                        type="text"
+                                                        ng-model="filters.message_text"
+                                                        ng-change="setFilterDebounced()"
+                                                        tabindex="4">
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+
+                                                        ng-click="clear('message_text')"
+                                                        class="control-remove"
+                                                        tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/message_text-->
+
+                                    <!--destination -->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-search"></span> Destination:
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <!--form-group-->
+                                        <div class="form-group">
+
+                                            <!--row-->
+                                            <div class="row">
+
+                                                <!--col-->
+                                                <div class="col-xs-11">
+
+                                                    <input
+                                                        ng-disabled="$root.isFilterLoading"
+                                                        class="form-control input-sm"
+                                                        type="text"
+                                                        ng-model="filters.destination"
+                                                        ng-change="setFilterDebounced()"
+                                                        tabindex="4">
+
+                                                </div>
+                                                <!--/col-->
+
+                                                <!--col-->
+                                                <div class="col-xs-1 text-center">
+
+                                                    <a
+                                                        ng-click="clear('destination')"
+                                                        class="control-remove"
+                                                        tabindex="-1">
+                                                        <span class="glyphicon glyphicon-remove-2"></span>
+                                                    </a>
+
+                                                </div>
+                                                <!--/col-->
+
+                                            </div>
+                                            <!--/row-->
+
+                                        </div>
+                                        <!--/form-group-->
+
+                                    </div>
+                                    <!--/destination-->
+
+
+                                    <!--date-->
+                                    <div class="form-group form-group-section">
+
+                                        <!--control-label-->
+                                        <label class="control-label">
+                                            <span class="glyphicon glyphicon-clock"></span> Date:
+                                        </label>
+                                        <!--/control-label-->
+
+                                        <div class="form-group-wrap">
 
                                             <!--form-group_DateFrom-->
                                             <div class="form-group">
@@ -279,12 +271,13 @@
                                                                     <div class="input-group input-group-sm">
                                                                         <!--input-->
 
-                                                                        <input-date
-                                                                                value="dateFrom"
+                                                                        <input inputmask-date
+                                                                                type="text"
+                                                                                class="form-control input-sm"
+                                                                                ng-model="filters.date_time"
                                                                                 tabindex="6"
-                                                                                autocommit="debouncedInput(350), lostFocus"
-                                                                                update-from-ctrl="dateFromUpdateFire">
-                                                                        </input-date>
+                                                                                ng-change="setFilterDebounced()"
+                                                                                mask="yyyy/mm/dd"/>
 
                                                                     </div>
                                                                     <!--/input-group-->
@@ -305,7 +298,7 @@
                                                     <div class="col-xs-1 text-center">
 
                                                         <a
-                                                            ng-click="clearDate('dateFrom')"
+                                                            ng-click="clear('date_time')"
                                                             class="control-remove"
                                                             tabindex="-1">
                                                             <span class="glyphicon glyphicon-remove-2"></span>
@@ -318,73 +311,7 @@
                                                 <!--/row-->
 
                                             </div>
-                                            <!--/form-group_DateFrom-->
-
-                                            <!--form-group_DateTo-->
-                                            <div class="form-group">
-
-                                                <!--row-->
-                                                <div class="row">
-
-                                                    <!--col-->
-                                                    <div class="col-xs-11">
-
-                                                        <!--form-horizontal-->
-                                                        <div class="form-horizontal">
-
-                                                            <!--form-group-->
-                                                            <div class="form-group">
-
-                                                                <!--control-label-->
-                                                                <label class="control-label col-xs-3">To:</label>
-                                                                <!--/control-label-->
-
-                                                                <!--col-->
-                                                                <div class="col-xs-9">
-
-                                                                    <!--input-group-->
-                                                                    <div class="input-group input-group-sm">
-
-                                                                        <input-date
-                                                                                value="dateTo"
-                                                                                tabindex="7"
-                                                                                autocommit="debouncedInput(350), lostFocus"
-                                                                                update-from-ctrl="dateToUpdateFire">
-                                                                        </input-date>
-
-                                                                    </div>
-                                                                    <!--/input-group-->
-
-                                                                </div>
-                                                                <!--/col-->
-
-                                                            </div>
-                                                            <!--/form-group-->
-
-                                                        </div>
-                                                        <!--/form-horizontal-->
-
-                                                    </div>
-                                                    <!--/col-->
-
-                                                    <!--col-->
-                                                    <div class="col-xs-1 text-center">
-
-                                                        <a
-                                                            ng-click="clearDate('dateTo')"
-                                                            class="control-remove"
-                                                            tabindex="-1">
-                                                            <span class="glyphicon glyphicon-remove-2"></span>
-                                                        </a>
-
-                                                    </div>
-                                                    <!--/col-->
-
-                                                </div>
-                                                <!--/row-->
-
-                                            </div>
-                                            <!--/form-group_DateTo-->
+                                            <!--date_time-->
 
                                         </div>
 
@@ -397,27 +324,26 @@
                                         <!--control-label-->
                                         <label class="control-label">
                                             <span class="glyphicon glyphicon-exportfile"></span> Status:
-                                            <span ns-model="filters.collapsed[5]" class="form-group-section-caret" ng-class="{ 'form-group-section-caret-collapsed' : filters.collapsed[5] }" ng-click="collapseFilterBlock(5); "></span>
                                         </label>
                                         <!--/control-label-->
 
                                         <!--form-group-->
-                                        <div class="form-group" ng-hide="filters.collapsed[5]">
+                                        <div class="form-group">
 
                                             <!--radio-->
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="status"
-                                                        ng-change="setFilter('status', '')"
+                                                        ng-model="filters.status"
+                                                        ng-change="clear('status')"
                                                         type="radio"
                                                         name="status-select"
                                                         ng-checked="true"
-                                                        value="active"
+                                                        value=""
                                                         tabindex="8">
-                                                    <span tooltip="Records which have alerts and need attention">
+                                                    <span tooltip="All">
                                                         <span class="glyphicon glyphicon-user"></span>
-                                                        Active
+                                                        All
                                                     </span>
                                                 </label>
                                             </div>
@@ -427,15 +353,15 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="status"
+                                                        ng-model="filters.status"
                                                         type="radio"
-                                                        ng-change="setFilter('status', 'pending')"
+                                                        ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="pending"
+                                                        value="1"
                                                         tabindex="9">
-                                                    <span tooltip="Records which are waiting to export">
+                                                    <span tooltip="Sent">
                                                         <span class="glyphicon glyphicon-busy"></span>
-                                                        Pending
+                                                        Sent
                                                     </span>
                                                 </label>
                                             </div>
@@ -445,15 +371,15 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="status"
+                                                        ng-model="filters.status"
                                                         type="radio"
-                                                        ng-change="setFilter('status', 'exported')"
+                                                        ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="exported"
+                                                        value="2"
                                                         tabindex="10">
-                                                    <span tooltip="Records which have been exported">
+                                                    <span tooltip="Get">
                                                         <span class="glyphicon glyphicon-exportfile"></span>
-                                                        Completed
+                                                        Get
                                                     </span>
                                                 </label>
                                             </div>
@@ -463,49 +389,16 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="status"
+                                                        ng-model="filters.status"
                                                         type="radio"
-                                                        ng-change="setFilter('status', 'underway')"
+                                                        ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="underway"
+                                                        value="3"
                                                         tabindex="11">
-                                                    <span tooltip="Visits which are in progress">
+                                                    <span tooltip="DLQ">
                                                         <span class="glyphicon glyphicon-clock"></span>
-                                                        Underway
+                                                        DLQ
                                                     </span>
-                                                </label>
-                                            </div>
-                                            <!--/radio-->
-
-                                            <!--radio-->
-                                            <div class="radio">
-                                                <label>
-                                                    <input
-                                                        ng-model="status"
-                                                        type="radio"
-                                                        ng-change="setFilter('status', 'inReview')"
-                                                        name="status-select"
-                                                        value="inReview"
-                                                        tabindex="11">
-                                                    <span tooltip="Visits which are in AMP user review">
-                                                        <span class="glyphicon glyphicon-phone"></span>
-                                                        User review
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <!--/radio-->
-
-                                            <!--radio-->
-                                            <div class="radio">
-                                                <label>
-                                                    <input
-                                                        ng-model="status"
-                                                        type="radio"
-                                                        ng-change="setFilter('status', 'all')"
-                                                        value="all"
-                                                        name="status-select"
-                                                        tabindex="12">
-                                                    All
                                                 </label>
                                             </div>
                                             <!--/radio-->
@@ -561,13 +454,11 @@
                             </div>
                             <!--/client-->
 
-                            <!--date-->
-                            <div class="grid-col-visitStart"
-                                 ng-click="changeDirectionFor('visitDate')"
-                                 ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'visitDate'), 'sort-up': sortPredicate('desc', 'visitDate') }">
-                                Status
+                            <!--scheduledDuration-->
+                            <div class="grid-col-shDuration text-center">
+                                Text
                             </div>
-                            <!--/date-->
+                            <!--/scheduledDuration-->
 
                             <!--visitEnd-->
                             <div class="grid-col-visitEnd">
@@ -583,11 +474,7 @@
                             </div>
                             <!--/duration-->
 
-                            <!--scheduledDuration-->
-                            <div class="grid-col-shDuration text-center">
-                                Text
-                            </div>
-                            <!--/scheduledDuration-->
+
 
                             <!--status>
                             <div class="grid-col-alerts">
@@ -624,25 +511,25 @@
                                     <span
                                         ng-show=" msg.status == '1'"
 										tooltip="Sent"
-                                        class="glyphicon glyphicon-phone">
+                                        class="glyphicon glyphicon-busy">
                                     </span>
 
                                     <span
                                         ng-show=" msg.status == '2'"
-                                        class="glyphicon glyphicon-phone"
-										tooltip-html-unsafe="User review: Visits which are in AMP user review <div ng-show='isLocked(ar)'><hr><div class='tooltop-locked-by'><span class='glyphicon glyphicon-locked'></span>Locked by {{ar.lockedByUserName}}</div></div>">
+                                        tooltip="Get"
+                                        class="glyphicon glyphicon-exportfile">
                                     </span>
 
                                     <span
                                         ng-show=" msg.status == '3' "
-										tooltip="Underway: Visits which are in progress"
+										tooltip="DLQ"
                                         class="glyphicon glyphicon-clock">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status == '' "
-                                        tooltip="Underway: Visits which are in progress"
-                                        class="glyphicon glyphicon-clock">
+                                        ng-show=" msg.status != '1' &&  msg.status != '2' && msg.status != '3' "
+                                        tooltip="Application"
+                                        class="glyphicon glyphicon-user">
                                     </span>
                                                                         
                                 </span>
@@ -663,26 +550,29 @@
                                 <span class="grid-col-employee">
                                     <span
                                         class="nowrap"
+                                        tooltip="{{msg.servicetracker_id}}"
                                         ng-show="msg.servicetracker_id">
                                         {{msg.servicetracker_id}}
                                     </span>
                                 </span>
                                 <!--/servicetracker_id-->
 
-                                <!--status-->
-                                <span class="grid-col-employee">
-                                    <span
-                                        class="nowrap"
-                                        ng-show="msg.status">
-                                        {{msg.status}}
-                                    </span>
+                                <!--message_text-->
+                                <span class="grid-col-client">
+                                     <span
+                                         class="nowrap"
+                                         tooltip="{{msg.message_text}}"
+                                         ng-show="msg.message_text">
+                                         {{msg.message_text }}
+                                     </span>
                                 </span>
-                                <!--/status-->
+                                <!--/message_text-->       
 
                                 <!--date_time-->
                                 <span class="grid-col-client">
                                      <span
                                          class="nowrap"
+                                         tooltip="{{msg.date_time}}"
                                          ng-show="msg.date_time">
                                          {{msg.date_time }}
                                      </span>
@@ -694,22 +584,12 @@
                                 <span class="grid-col-client">
                                      <span
                                          class="nowrap"
+                                         tooltip="{{msg.destination}}"
                                          ng-show="msg.destination">
                                          {{msg.destination }}
                                      </span>
                                 </span>
-                                <!--/destination-->
-            
-                                <!--message_text-->
-                                <span class="grid-col-client">
-                                     <span
-                                         class="nowrap"
-                                         tooltip="{{msg.message_text}}"
-                                         ng-show="msg.message_text">
-                                         {{msg.message_text }}
-                                     </span>
-                                </span>
-                                <!--/message_text-->             
+                                <!--/destination-->  
 
                                 <!--message_text>
                                 <span class="grid-col-client">
