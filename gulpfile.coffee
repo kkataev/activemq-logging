@@ -15,7 +15,7 @@ template   = require 'gulp-template'
 tinylr     = require 'tiny-lr'
 
 watch      = require 'gulp-watch'
-imagemin   = require 'gulp-imagemin'
+#imagemin   = require 'gulp-imagemin'
 uglify     = require 'gulp-uglify'
 cssmin     = require 'gulp-cssmin'
 karma      = require 'gulp-karma'
@@ -24,7 +24,7 @@ moment     = require 'moment'
 
 app = express()
 
-EXPRESS_PORT = 5000
+EXPRESS_PORT = 8165
 LIVERELOAD_PORT = 35729
 lr = undefined
 time = start = end = 0

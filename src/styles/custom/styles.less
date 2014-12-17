@@ -1,7 +1,7 @@
 @import "variables.less";
 @import "mixins.less";
-@import "../vendors/Addus/appHeaderStyle.less";
-@import "../vendors/Addus/httpErrorsBoxStyle.less";
+@import "../../../bower_components/Addus/src/directives/AppHeader/styles/appHeaderStyle.less";
+@import "../../../bower_components/Addus/src/directives/HttpErrorsBox/styles/httpErrorsBoxStyle.less";
 @import "icomoon-glyphs.less";
 @import "base.less";
 @import "ext.less";
@@ -2217,7 +2217,7 @@ body {
 
 /*page-title */
 .page-title {
-  .border-radius(25px);
+  border-radius: 25px;
   background: lighten(@gray, 30%);
   font-weight: bold;
   line-height: 1.3em;
@@ -2240,7 +2240,7 @@ body {
 
 /*main-container */
 .main-container {
-  margin: @baseLineHeight 10px 0 10px;
+  margin: 18px 10px 0 10px;
   /*filter */
   .filter {
     fieldset {
@@ -2317,7 +2317,7 @@ body {
 /*!table-list-items */
   /*item-edit-controls */
   .item-edit-controls {
-    padding-bottom: @baseLineHeight;
+    padding-bottom: 18px;
     textarea.item-description {
       min-height: 150px;
       min-width: 270px;
@@ -2342,7 +2342,7 @@ body {
         }
       }
       .list-items {
-        .border-radius(10px);
+        border-radius:10px;
         height: 270px;
         overflow-y: scroll;
         border: 1px solid @grayLighter;
