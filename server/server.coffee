@@ -13,47 +13,63 @@ module.exports = (app, options) ->
 
 
 	app.get '/api/log', (req, res) -> 
-		whereFlg = false
-		query =	'SELECT  *
-					FROM ( 
-						SELECT ROW_NUMBER() OVER ( ORDER BY b.id ) AS RowNum, 
-							b.id, b.activemq_id, b.date_time, b.destination, 
-							b.message_text, b.sender_id, b.servicetracker_id, b.origin, b.status
-				        FROM Messages' 
+		whereFlg = true
 
-		if req.query.servicetracker_id
-			query = query + ' a RIGHT JOIN Messages b ON a.activemq_id = b.activemq_id WHERE a.servicetracker_id like ' + '\'%' + req.query.servicetracker_id + '%\'' 
-			whereFlg = true
-		else 
-			query = query + ' b'
+		if req.query.Payload
+			query = 'SELECT * FROM (
+						SELECT ROW_NUMBER() OVER ( ORDER BY d.date ) AS RowNum, *
+						FROM ( 
+								(
+									SELECT b.Id, b.Date, b.MessageId, b.ClientId, b.Destination as QueueName, b.ProcessingStatus, b.Payload
+									FROM MessagingLog.dbo.ApplicationMessages a 
+									LEFT JOIN MessagingLog.dbo.ActiveMQMessages b 
+									ON a.MessageId = b.MessageId 
+									WHERE a.Payload LIKE ' + '\'%' + req.query.Payload + '%\' 
+								)
+								UNION ALL 
+								(
+									SELECT Id, Date, MessageId, ClientId, QueueName, ProcessingStatus, Payload 
+									FROM MessagingLog.dbo.ApplicationMessages 
+									WHERE Payload LIKE ' + '\'%' + req.query.Payload + '%\' 
+								)
+							) d
+						WHERE d.id IS NOT NULL '
+		else
+			query =	'SELECT * FROM (
+						SELECT  ROW_NUMBER() OVER ( ORDER BY d.date ) AS RowNum, *
+						FROM ( 
+								(
+									SELECT b.Id, b.Date, b.MessageId, b.ClientId, b.Destination as QueueName, b.ProcessingStatus, b.Payload
+									FROM MessagingLog.dbo.ActiveMQMessages b
+								)
+								UNION ALL 
+								(
+									SELECT Id, Date, MessageId, ClientId, QueueName, ProcessingStatus, Payload 
+									FROM MessagingLog.dbo.ApplicationMessages 
+								)
+							) d
+						WHERE d.id IS NOT NULL '
 
-		if req.query.activemq_id
-			addWhere()
-			query = query + ' b.activemq_id like ' + '\'%' + req.query.activemq_id + '%\''
 
-		if req.query.message_text
-			addWhere()
-			query = query + ' b.message_text like ' + '\'%' + req.query.message_text + '%\''
+		if req.query.MessageId
+			query += ' AND b.MessageId like ' + '\'%' + req.query.MessageId + '%\''
 
-		if req.query.date_time
-			addWhere()
-			query = query + ' b.date_time > ' + '\'' + req.query.date_time + '\''
+		if req.query.Date
+			query += ' AND b.Date > ' + '\'' + req.query.Date + '\''
 
-		if req.query.status
-			addWhere()
-			query = query + ' b.status like ' + '\'' + req.query.status + '\''
+		if req.query.ProcessingStatus
+			query += ' AND b.ProcessingStatus like ' + '\'' + req.query.ProcessingStatus + '\''
 
-		if req.query.destination
-			addWhere()
-			query = query + ' b.destination like ' + '\'%' + req.query.destination + '%\''
+		if req.query.QueueName
+			query += ' AND b.QueueName like ' + '\'%' + req.query.QueueName + '%\''
 
-		query = query + ') as c'
+		query += ') e '
 
 		if req.query.offset
 			start = parseInt(req.query.offset) + 1
 			count = parseInt(req.query.count)
 			finish = start + count
-			query = query + ' WHERE RowNum >= ' + start + ' AND RowNum < ' + finish + ' ORDER BY RowNum'
+			query += ' WHERE RowNum >= ' + start + ' AND RowNum < ' + finish + ' ORDER BY RowNum'
 		
 		console.log query
 
