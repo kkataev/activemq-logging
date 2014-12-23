@@ -30,7 +30,7 @@
 
                                         <!--control-label-->
                                         <label class="control-label">
-                                            <span class="glyphicon glyphicon-search"></span> ServiceTracker ID (search all messages joined by ActiveMQ ID):
+                                            <span class="glyphicon glyphicon-search"></span> Payload (search all messages joined by ActiveMQ ID):
                                         </label>
                                         <!--/control-label-->
 
@@ -47,7 +47,7 @@
                                                         ng-disabled="$root.isFilterLoading"
                                                         class="form-control input-sm"
                                                         type="text"
-                                                        ng-model="filters.servicetracker_id"
+                                                        ng-model="filters.Payload"
                                                         ng-change="setFilterDebounced()"
                                                         tabindex="4">
 
@@ -59,7 +59,7 @@
 
                                                     <a
 
-                                                        ng-click="clear('servicetracker_id')"
+                                                        ng-click="clear('Payload')"
                                                         class="control-remove"
                                                         tabindex="-1">
                                                         <span class="glyphicon glyphicon-remove-2"></span>
@@ -82,7 +82,7 @@
 
                                         <!--control-label-->
                                         <label class="control-label">
-                                            <span class="glyphicon glyphicon-search"></span> ActiveMQ ID:
+                                            <span class="glyphicon glyphicon-search"></span> Message Id:
                                         </label>
                                         <!--/control-label-->
 
@@ -99,7 +99,7 @@
                                                         ng-disabled="$root.isFilterLoading"
                                                         class="form-control input-sm"
                                                         type="text"
-                                                        ng-model="filters.activemq_id"
+                                                        ng-model="filters.MessageId"
                                                         ng-change="setFilterDebounced()"
                                                         tabindex="4">
 
@@ -111,7 +111,7 @@
 
                                                     <a
 
-                                                        ng-click="clear('activemq_id')"
+                                                        ng-click="clear('MessageId')"
                                                         class="control-remove"
                                                         tabindex="-1">
                                                         <span class="glyphicon glyphicon-remove-2"></span>
@@ -204,7 +204,7 @@
                                                         ng-disabled="$root.isFilterLoading"
                                                         class="form-control input-sm"
                                                         type="text"
-                                                        ng-model="filters.destination"
+                                                        ng-model="filters.QueueName"
                                                         ng-change="setFilterDebounced()"
                                                         tabindex="4">
 
@@ -215,7 +215,7 @@
                                                 <div class="col-xs-1 text-center">
 
                                                     <a
-                                                        ng-click="clear('destination')"
+                                                        ng-click="clear('QueueName')"
                                                         class="control-remove"
                                                         tabindex="-1">
                                                         <span class="glyphicon glyphicon-remove-2"></span>
@@ -274,7 +274,7 @@
                                                                         <input inputmask-date
                                                                                 type="text"
                                                                                 class="form-control input-sm"
-                                                                                ng-model="filters.date_time"
+                                                                                ng-model="filters.Date"
                                                                                 tabindex="6"
                                                                                 ng-change="setFilterDebounced()"
                                                                                 mask="yyyy/mm/dd"/>
@@ -298,7 +298,7 @@
                                                     <div class="col-xs-1 text-center">
 
                                                         <a
-                                                            ng-click="clear('date_time')"
+                                                            ng-click="clear('Date')"
                                                             class="control-remove"
                                                             tabindex="-1">
                                                             <span class="glyphicon glyphicon-remove-2"></span>
@@ -334,8 +334,8 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="filters.status"
-                                                        ng-change="clear('status')"
+                                                        ng-model="filters.ProcessingStatus"
+                                                        ng-change="clear('ProcessingStatus')"
                                                         type="radio"
                                                         name="status-select"
                                                         ng-checked="true"
@@ -353,11 +353,11 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="filters.status"
+                                                        ng-model="filters.ProcessingStatus"
                                                         type="radio"
                                                         ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="1"
+                                                        value="S"
                                                         tabindex="9">
                                                     <span tooltip="Sent">
                                                         <span class="glyphicon glyphicon-busy"></span>
@@ -371,13 +371,13 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="filters.status"
+                                                        ng-model="filters.ProcessingStatus"
                                                         type="radio"
                                                         ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="2"
+                                                        value="R"
                                                         tabindex="10">
-                                                    <span tooltip="Get">
+                                                    <span tooltip="Recieve">
                                                         <span class="glyphicon glyphicon-exportfile"></span>
                                                         Get
                                                     </span>
@@ -389,11 +389,11 @@
                                             <div class="radio">
                                                 <label>
                                                     <input
-                                                        ng-model="filters.status"
+                                                        ng-model="filters.ProcessingStatus"
                                                         type="radio"
                                                         ng-change="setFilterDebounced()"
                                                         name="status-select"
-                                                        value="3"
+                                                        value="D"
                                                         tabindex="11">
                                                     <span tooltip="DLQ">
                                                         <span class="glyphicon glyphicon-clock"></span>
@@ -509,25 +509,25 @@
                                 <span class="grid-col-status text-center">
 
                                     <span
-                                        ng-show=" msg.status == '1'"
+                                        ng-show=" msg.status == 'S'"
 										tooltip="Sent"
                                         class="glyphicon glyphicon-busy">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status == '2'"
-                                        tooltip="Get"
+                                        ng-show=" msg.status == 'R'"
+                                        tooltip="Recieve"
                                         class="glyphicon glyphicon-exportfile">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status == '3' "
+                                        ng-show=" msg.status == 'D' "
 										tooltip="DLQ"
                                         class="glyphicon glyphicon-clock">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status != '1' &&  msg.status != '2' && msg.status != '3' "
+                                        ng-show=" msg.status != 'S' &&  msg.status != 'R' && msg.status != 'D' "
                                         tooltip="Application"
                                         class="glyphicon glyphicon-user">
                                     </span>
@@ -539,9 +539,9 @@
                                 <span class="grid-col-employee">
                                     <span
                                         class="nowrap"
-                                        tooltip="{{msg.activemq_id}}"
-                                        ng-show="msg.activemq_id">
-                                        {{msg.activemq_id}}
+                                        tooltip="{{msg.MessageId}}"
+                                        ng-show="msg.MessageId">
+                                        {{msg.MessageId}}
                                     </span>
                                 </span>
                                 <!--/employee-->
@@ -550,31 +550,21 @@
                                 <span class="grid-col-employee">
                                     <span
                                         class="nowrap"
-                                        tooltip="{{msg.servicetracker_id}}"
-                                        ng-show="msg.servicetracker_id">
-                                        {{msg.servicetracker_id}}
+                                        tooltip="{{msg.Payload}}"
+                                        ng-show="msg.Payload">
+                                        {{msg.Payload}}
                                     </span>
                                 </span>
                                 <!--/servicetracker_id-->
 
-                                <!--message_text-->
-                                <span class="grid-col-client">
-                                     <span
-                                         class="nowrap"
-                                         tooltip="{{msg.message_text}}"
-                                         ng-show="msg.message_text">
-                                         {{msg.message_text }}
-                                     </span>
-                                </span>
-                                <!--/message_text-->       
 
                                 <!--date_time-->
                                 <span class="grid-col-client">
                                      <span
                                          class="nowrap"
-                                         tooltip="{{msg.date_time}}"
-                                         ng-show="msg.date_time">
-                                         {{msg.date_time }}
+                                         tooltip="{{msg.Date}}"
+                                         ng-show="msg.Date">
+                                         {{msg.Date }}
                                      </span>
                                 </span>
                                 <!--/date_time-->
@@ -584,9 +574,9 @@
                                 <span class="grid-col-client">
                                      <span
                                          class="nowrap"
-                                         tooltip="{{msg.destination}}"
-                                         ng-show="msg.destination">
-                                         {{msg.destination }}
+                                         tooltip="{{msg.QueueName}}"
+                                         ng-show="msg.QueueName">
+                                         {{msg.QueueName }}
                                      </span>
                                 </span>
                                 <!--/destination-->  

@@ -52,16 +52,16 @@ module.exports = (app, options) ->
 
 
 		if req.query.MessageId
-			query += ' AND b.MessageId like ' + '\'%' + req.query.MessageId + '%\''
+			query += ' AND d.MessageId like ' + '\'%' + req.query.MessageId + '%\''
 
 		if req.query.Date
-			query += ' AND b.Date > ' + '\'' + req.query.Date + '\''
+			query += ' AND d.Date > ' + '\'' + req.query.Date + '\''
 
 		if req.query.ProcessingStatus
-			query += ' AND b.ProcessingStatus like ' + '\'' + req.query.ProcessingStatus + '\''
+			query += ' AND d.ProcessingStatus like ' + '\'' + req.query.ProcessingStatus + '\''
 
 		if req.query.QueueName
-			query += ' AND b.QueueName like ' + '\'%' + req.query.QueueName + '%\''
+			query += ' AND d.QueueName like ' + '\'%' + req.query.QueueName + '%\''
 
 		query += ') e '
 
