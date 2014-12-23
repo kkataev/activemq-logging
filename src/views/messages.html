@@ -446,14 +446,6 @@
                             </div>
                             <!--/employee-->
 
-                            <!--client-->
-                            <div class="grid-col-client"
-                                 ng-click="changeDirectionFor('client')"
-                                 ng-class="{ 'sort': true, 'sort-down': sortPredicate('asc', 'client'), 'sort-up': sortPredicate('desc', 'client') }">
-                                ServiceTracker ID
-                            </div>
-                            <!--/client-->
-
                             <!--scheduledDuration-->
                             <div class="grid-col-shDuration text-center">
                                 Text
@@ -509,25 +501,25 @@
                                 <span class="grid-col-status text-center">
 
                                     <span
-                                        ng-show=" msg.status == 'S'"
+                                        ng-show=" msg.ProcessingStatus == 'S'"
 										tooltip="Sent"
                                         class="glyphicon glyphicon-busy">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status == 'R'"
+                                        ng-show=" msg.ProcessingStatus == 'R'"
                                         tooltip="Recieve"
                                         class="glyphicon glyphicon-exportfile">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status == 'D' "
+                                        ng-show=" msg.ProcessingStatus == 'D' "
 										tooltip="DLQ"
                                         class="glyphicon glyphicon-clock">
                                     </span>
 
                                     <span
-                                        ng-show=" msg.status != 'S' &&  msg.status != 'R' && msg.status != 'D' "
+                                        ng-show=" msg.ProcessingStatus != 'S' &&  msg.ProcessingStatus != 'R' && msg.ProcessingStatus != 'D' "
                                         tooltip="Application"
                                         class="glyphicon glyphicon-user">
                                     </span>
